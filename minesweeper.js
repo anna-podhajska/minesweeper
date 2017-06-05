@@ -17,22 +17,20 @@ var board = {
 
 function startGame () {
 
-//ANIA:
+//_________ANIA #6.3:
 
   for (var i = 0; i < board.cells.length; i++) {
-
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
 
   document.getElementsByClassName('board')[0].addEventListener('click', checkForWin);
   document.getElementsByClassName('board')[0].addEventListener('contextmenu', checkForWin);
-  // using for in loop:
+
+  // using 'for in' instead 'for' loop:
   // for (var i in board.cells) {
-  //   board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  //board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   // }
-
-
-//:ANIA
+//_______ANIA
 
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
@@ -44,16 +42,19 @@ function startGame () {
 // 2. Are all of the mines marked?
 function checkForWin () {
 
+  //_______ANIA #6.3:
+ //assume that total mines and total correctly marked must be equal:
+
   var totalMines = 0;
   var totalCorrectlyMarked = 0;
 
   for (var i = 0; i < board.cells.length; i++) {
 
     if (board.cells[i].isMine && board.cells[i].isMarked) {
-      totalCorrectlyMarked +=1;
+      totalCorrectlyMarked +=1; //if a mine exists and is marked blue correctly. .Marked prop. is added by another function done by eda
     }
     else if (board.cells[i].hidden === true) {
-      return;
+      return;  //note: a square can be both .isMarked set to true and .hidden set to true at the same time.
     }
 
     if (board.cells[i].isMine === true) {
@@ -80,7 +81,7 @@ function checkForWin () {
 // It will return cell objects in an array. You should loop through
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
-  //ANIA:
+  //_______ANIA:
   var surrounding = lib.getSurroundingCells(cell.row, cell.col);
   var count = 0;
   for (var i = 0; i < surrounding.length; i++) {
