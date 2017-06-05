@@ -11,7 +11,7 @@ var board = {
     {row:1,col:2,isMine:false, hidden:true},
     {row:2,col:0,isMine:false, hidden:true},
     {row:2,col:1,isMine:false, hidden:true},
-    {row:2,col:2,isMine:false, hidden:true}
+    {row:2,col:2,isMine:true, hidden:true}
   ]
 }
 
@@ -23,6 +23,13 @@ function startGame () {
 
     board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
+
+  document.getElementsByClassName('board')[0].addEventListener('click', checkForWin);
+  document.getElementsByClassName('board')[0].addEventListener('contextmenu', checkForWin);
+  // using for in loop:
+  // for (var i in board.cells) {
+  //   board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+  // }
 
 
 //:ANIA
@@ -36,6 +43,28 @@ function startGame () {
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin () {
+
+  var totalMines = 0;
+  var totalCorrectlyMarked = 0;
+
+  for (var i = 0; i < board.cells.length; i++) {
+
+    if (board.cells[i].isMine && board.cells[i].isMarked) {
+      totalCorrectlyMarked +=1;
+    }
+    else if (board.cells[i].hidden === true) {
+      return;
+    }
+
+    if (board.cells[i].isMine === true) {
+      totalMines += 1;
+    }
+  }
+
+  if (totalMines === totalCorrectlyMarked) {
+    lib.displayMessage('You win!');
+  }
+
 
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
@@ -51,6 +80,7 @@ function checkForWin () {
 // It will return cell objects in an array. You should loop through
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
+  //ANIA:
   var surrounding = lib.getSurroundingCells(cell.row, cell.col);
   var count = 0;
   for (var i = 0; i < surrounding.length; i++) {
