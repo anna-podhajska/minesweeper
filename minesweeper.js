@@ -1,22 +1,57 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
-// Define your `board` object here!
+// var board defined:
 var board = {
   cells: [
-    {row:0,col:0,isMine:true, hidden:true},
-    {row:0,col:1,isMine:false, hidden:true},
-    {row:0,col:2,isMine:false, hidden:true},
-    {row:1,col:0,isMine:false, hidden:true},
-    {row:1,col:1,isMine:false, hidden:true},
-    {row:1,col:2,isMine:false, hidden:true},
-    {row:2,col:0,isMine:false, hidden:true},
-    {row:2,col:1,isMine:false, hidden:true},
-    {row:2,col:2,isMine:true, hidden:true}
+    // {row:0,col:0,isMine:true, hidden:true},
+    // {row:0,col:1,isMine:false, hidden:true},
+    // {row:0,col:2,isMine:false, hidden:true},
+    // {row:1,col:0,isMine:false, hidden:true},
+    // {row:1,col:1,isMine:false, hidden:true},
+    // {row:1,col:2,isMine:false, hidden:true},
+    // {row:2,col:0,isMine:false, hidden:true},
+    // {row:2,col:1,isMine:false, hidden:true},
+    // {row:2,col:2,isMine:true, hidden:true}
   ]
 }
 
-function startGame () {
+//var board;
 
+function generateBoard(len) {
+  board.cells = [];
+
+  for (var i = 0; i < len; i++) {
+    for (var j = 0; j < len; j++) {
+      board.cells.push({row:i, col:j, isMine:false, hidden:true});
+    }
+  }
+
+  var mineIndex = Math.floor(Math.random()*(len*len));
+  board.cells[mineIndex].isMine = true;
+
+
+}
+generateBoard(3);
+
+
+//
+// function BombSet() = {
+//
+//   function randomBoolean() {
+//   var randomNumber = Math.random() >= 0.5;
+//   console.log(randomNumber);
+//   }
+//   // randomBoolean()
+//
+//   for (var i = 0; i<= board.cells[i]; i++) {
+//     board.cells[i].isMine["false"] = randomBoolean()
+//   }
+// }
+// BombSet();
+
+
+
+function startGame () {
 //_________ANIA #6.3:
 
   for (var i = 0; i < board.cells.length; i++) {
@@ -36,10 +71,7 @@ function startGame () {
   lib.initBoard()
 }
 
-// Define this function to look for a win condition:
-//
-// 1. Are all of the cells that are NOT mines visible?
-// 2. Are all of the mines marked?
+
 function checkForWin () {
 
   //_______ANIA #6.3:
