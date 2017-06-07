@@ -72,7 +72,13 @@ function startGame () {
 }
 
 
-function checkForWin () {
+function checkForWin (evt) {
+  if (evt.target.classList.contains('mine')) { //inspired by EDA's lib
+    document.getElementById("sound-loose").play();
+  }
+  else if (evt.currentTarget.className==="board") { //evt.currentTarget.className is "board" taken from debugger
+    document.getElementById("sound-click").play();
+  }
 
   //_______ANIA #6.3:
  //assume that total mines and total correctly marked must be equal:
@@ -95,7 +101,8 @@ function checkForWin () {
   }
 
   if (totalMines === totalCorrectlyMarked) {
-    lib.displayMessage('You win!');
+    lib.displayMessage('You won!');
+    document.getElementById("sound-win").play();
   }
 
 
